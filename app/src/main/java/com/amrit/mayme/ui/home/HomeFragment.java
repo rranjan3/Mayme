@@ -4,28 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Supplier;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.amrit.mayme.R;
 import com.amrit.mayme.adapter.MainPostListAdapter;
-import com.amrit.mayme.core.Post;
 import com.amrit.mayme.model.PostDB;
-
-import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
 
@@ -73,7 +65,11 @@ public class HomeFragment extends Fragment {
 
     }
 
-    Supplier<Integer> getCommentFragment(){
-        return () -> getParentFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new CommentFragment()).commit();
+    Function<CommentFragment, Integer> getCommentFragment(){
+        return (fragment) -> {
+            FloatingActionButton fab = ((AppCompatActivity)getActivity()).findViewById(R.id.fab);
+            fab.hide();
+            return getParentFragmentManager().beginTransaction().addToBackStack("home").replace(R.id.nav_host_fragment,fragment).commit();
+        };
     }
 }

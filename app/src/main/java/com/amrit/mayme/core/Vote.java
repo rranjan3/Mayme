@@ -2,6 +2,8 @@ package com.amrit.mayme.core;
 
 import java.util.Set;
 
+//NOT USED
+
 public class Vote {
     Set<String> upVoteIds;
     Set<String> downVoteIds;

@@ -13,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.arch.core.util.Function;
 import androidx.core.util.Supplier;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amrit.mayme.R;
 import com.amrit.mayme.core.Post;
+import com.amrit.mayme.ui.home.CommentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class MainPostListAdapter extends RecyclerView.Adapter<MainPostListAdapte
     private static List<Post> aCList;
     private static List<Post> aCListFull;
     public MainPostListAdapterUtil adapterUtil;
-    Supplier<Integer> commentFragment;
+    Function<CommentFragment,Integer> commentFragment;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -72,7 +74,7 @@ public class MainPostListAdapter extends RecyclerView.Adapter<MainPostListAdapte
     }
 
     // Another constructor
-    public MainPostListAdapter(List<Post> aCList, IMyViewHolderClicks mListener, androidx.core.util.Supplier<Integer> commentFragment) {
+    public MainPostListAdapter(List<Post> aCList, IMyViewHolderClicks mListener, Function<CommentFragment,Integer> commentFragment) {
         MainPostListViewHolder.mListener = mListener;
         MainPostListAdapter.aCList = aCList;
         aCListFull = new ArrayList<>(aCList);
